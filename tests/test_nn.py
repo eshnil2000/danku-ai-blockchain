@@ -6,8 +6,8 @@ from dutils.dataset import SampleCircleDataset, SampleSwirlDataset,\
 	SampleHalfDividedDataset, SampleAcrossCornerDataset
 
 class TestDankuTestCase(TestCase):
-	   def setUp(self):
-			   print("dummy setup")
+	def setUp(self):
+		print("dummy setup")
 
 class TestDanku(TestDankuTestCase):
 	def test_create_2_layer_nn(self):
