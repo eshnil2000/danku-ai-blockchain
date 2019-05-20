@@ -6,19 +6,19 @@ from dutils.dataset import SampleCircleDataset, SampleSwirlDataset,\
     SampleHalfDividedDataset, SampleAcrossCornerDataset
 
 class TestDankuTestCase(TestCase):
-	def setUp(self):
-		print("dummy setup")
+       def setUp(self):
+               print("dummy setup")
 
 class TestDanku(TestDankuTestCase):
-	def test_create_2_layer_nn(self):
-    		il_nn = 2
-    		hl_nn = []
-    		ol_nn = 2
-    		nn = NeuralNetwork(il_nn, hl_nn, ol_nn)
-    		nn.init_network()
-    		assert(not isinstance(nn.tf_weights, type(None)))
-    		assert(not isinstance(nn.tf_init, type(None)))
-    		assert(not isinstance(nn.tf_layers, type(None)))
+       def test_create_2_layer_nn(self):
+            il_nn = 2
+            hl_nn = []
+    	    ol_nn = 2
+    	    nn = NeuralNetwork(il_nn, hl_nn, ol_nn)
+    	    nn.init_network()
+    	    assert(not isinstance(nn.tf_weights, type(None)))
+    	    assert(not isinstance(nn.tf_init, type(None)))
+    	    assert(not isinstance(nn.tf_layers, type(None)))
 	def test_create_2_layer_nn():
 	    il_nn = 2
 	    hl_nn = []
