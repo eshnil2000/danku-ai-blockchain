@@ -1,18 +1,30 @@
-#Main additions: 
+# Main additions: 
 Added Unit testing capability, in test folder
+
 Added requirements.txt_final
-##Instructions
+
+## Instructions
+
 git clone https://github.com/ethereum/web3.py.git && cd web3.py
+
 docker-compose up -d
+
 docker-compose exec sandbox bash
-##inside container: 
+
+## inside container: 
+
 pip3.6 install --upgrade tensorflow
+
 git clone https://github.com/eshnil2000/danku-ai-blockchain.git && cd danku-ai-blockchain
+
 export PYTHONPATH=/code/danku-ai-blockchain
+
 pip3.6 install -r requirements.txt
 
-##useful tools
+## useful tools
+
 pip install pip-check
+
 pip3.6 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3.6 install -U
 
 # Danku
