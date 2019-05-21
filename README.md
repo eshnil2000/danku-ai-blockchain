@@ -1,5 +1,20 @@
 #Main additions: 
 Added Unit testing capability, in test folder
+Added requirements.txt_final
+##Instructions
+git clone https://github.com/ethereum/web3.py.git && cd web3.py
+docker-compose up -d
+docker-compose exec sandbox bash
+##inside container: 
+pip3.6 install --upgrade tensorflow
+git clone https://github.com/eshnil2000/danku-ai-blockchain.git && cd danku-ai-blockchain
+export PYTHONPATH=/code/danku-ai-blockchain
+pip3.6 install -r requirements.txt
+
+##useful tools
+pip install pip-check
+pip3.6 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3.6 install -U
+
 # Danku
 
 Machine Learning algorithms are being developed and improved at an incredible rate, but are not necessarily getting more accessible to the broader community. That’s why today Algorithmia is announcing DanKu, a new blockchain-based protocol for evaluating and purchasing ML models on a public blockchain such as Ethereum. DanKu enables anyone to get access to high quality, objectively measured machine learning models. At Algorithmia, we believe that widespread access to algorithms and deployment solutions is going to be a fundamental building block of a balanced future for AI, and DanKu is a step towards that vision.
