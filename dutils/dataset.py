@@ -360,7 +360,7 @@ class DemoDataset(Dataset):
 
         # Normally there's 2442 data points
         # Get the first 2440 values (so it's divisible by 5)
-        max_values = 500
+        max_values = 50
         super().__init__(max_num_data_groups=max_values, training_percentage=training_percentage,\
         partition_size=partition_size)
         self.data = [tuple(map(lambda y: int(y), x)) for x in dfN.values]
