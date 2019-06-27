@@ -2,8 +2,8 @@ pragma solidity ^0.4.19;
 // Danku contract version 0.0.1
 // Data points are x, y, and z
 
-contract Danku_demo_final {
-  function Danku_demo_final() public {
+contract Danku_demo {
+  function Danku_demo() public {
     // Neural Network Structure:
     //
     // (required) input layer x number of neurons
@@ -39,15 +39,15 @@ contract Danku_demo_final {
   // Use test data if provided
   bool public use_test_data = false;
   // Each partition is 5% of the total dataset size
-  uint constant partition_size = 5;
+  uint constant partition_size = 25;
   // Data points are made up of x and y coordinates and the prediction
   uint constant datapoint_size = 3;
   uint constant prediction_size = 1;
   // Max number of data groups
   // Change this to your data group size
-  uint16 constant max_num_data_groups = 50;
+  uint16 constant max_num_data_groups = 500;
   // Training partition size
-  uint16 constant training_data_group_size = 40;
+  uint16 constant training_data_group_size = 400;
   // Testing partition size
   uint16 constant testing_data_group_size = max_num_data_groups - training_data_group_size;
   // Dataset is divided into data groups.
@@ -126,16 +126,16 @@ contract Danku_demo_final {
   function init3(int256[] _train_data_groups, int256 _train_data_group_nonces) external {
     // Pass a single data group at a time
     // Make sure contract is not terminated
-    //assert(contract_terminated == false);
+    assert(contract_terminated == false);
     // Only allow calling once, in order
-    //assert(init_level == 2);
+    assert(init_level == 2);
     // Verify data group and nonce lengths
-    //assert((_train_data_groups.length/partition_size)/datapoint_size == 1);
+    assert((_train_data_groups.length/partition_size)/datapoint_size == 1);
     // Verify data group hashes
     // Order of revealed training data group must be the same with training partitions
     // Otherwise hash verification will fail
-    //assert(sha_data_group(_train_data_groups, _train_data_group_nonces) ==
-    //  hashed_data_groups[training_partition[train_dg_revealed]]);
+    assert(sha_data_group(_train_data_groups, _train_data_group_nonces) ==
+      hashed_data_groups[training_partition[train_dg_revealed]]);
     train_dg_revealed += 1;
     // Assign training data after verifying the corresponding hash
     unpack_data_groups(_train_data_groups, true);
@@ -170,7 +170,7 @@ contract Danku_demo_final {
       // Make sure it's not the initialization stage anymore
       assert(init_level == 3);
       // Make sure it's still within the submission stage
-      //assert(block.number < init3_block_height + submission_stage_block_size);
+      assert(block.number < init3_block_height + submission_stage_block_size);
       // Make sure that num of neurons in the input & output layer matches
       // the problem description
       assert(num_neurons_input_layer == datapoint_size - prediction_size);
@@ -236,14 +236,14 @@ contract Danku_demo_final {
     // Make sure it's not the initialization stage anymore
     assert(init_level == 3);
     // Make sure it's revealed after the submission stage
-    //assert(block.number >= init3_block_height + submission_stage_block_size);
+    assert(block.number >= init3_block_height + submission_stage_block_size);
     // Make sure it's revealed within the reveal stage
-    //assert(block.number < init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size);
+    assert(block.number < init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size);
     // Verify data group and nonce lengths
-    //assert((_test_data_groups.length/partition_size)/datapoint_size == 1);
+    assert((_test_data_groups.length/partition_size)/datapoint_size == 1);
     // Verify data group hashes
-    //assert(sha_data_group(_test_data_groups, _test_data_group_nonces) ==
-      //hashed_data_groups[testing_partition[test_dg_revealed]]);
+    assert(sha_data_group(_test_data_groups, _test_data_group_nonces) ==
+      hashed_data_groups[testing_partition[test_dg_revealed]]);
     test_dg_revealed += 1;
     // Assign testing data after verifying the corresponding hash
     unpack_data_groups(_test_data_groups, false);
@@ -257,9 +257,9 @@ contract Danku_demo_final {
     // Make sure it's not the initialization stage anymore
     assert(init_level == 3);
     // Make sure it's evaluated after the reveal stage
-    //assert(block.number >= init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size);
+    assert(block.number >= init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size);
     // Make sure it's evaluated within the evaluation stage
-    //assert(block.number < init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size + evaluation_stage_block_size);
+    assert(block.number < init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size + evaluation_stage_block_size);
     // Evaluates a submitted model & keeps track of the best model
     int256 submission_accuracy = 0;
     if (use_test_data == true) {
@@ -299,7 +299,7 @@ contract Danku_demo_final {
     // Make sure it's not the initialization stage anymore
     assert(init_level == 3);
     // Make sure the contract is finalized after the evaluation stage
-    //assert(block.number >= init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size + evaluation_stage_block_size);
+    assert(block.number >= init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size + evaluation_stage_block_size);
     // Get the best submission to compare it against the criteria
     Submission memory best_submission = submission_queue[best_submission_index];
     // If best submission passes criteria, payout to the submitter
